@@ -27,13 +27,11 @@ public class PlayerController : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
-        Vector3 move = (transform.right * x + transform.forward * z) * speed * Time.deltaTime;
+        Vector3 move = new Vector3(x, 0, z) * speed * Time.deltaTime;
+        
+        //Vector3 move = (transform.right * x + transform.forward * z) * speed * Time.deltaTime;
 
         controller.Move(move);
-
-        print(Globales.move);
-        Globales.move = move;
-        print(Globales.move);
 
         Ray cameraRay = mainCamera.ScreenPointToRay(Input.mousePosition);
         Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
