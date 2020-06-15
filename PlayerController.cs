@@ -6,8 +6,6 @@ public class PlayerController : MonoBehaviour
 {
     public CharacterController controller;
 
-    private Rigidbody rb;
-
     public float speed = 12f;
 
     public Vector3 moveInput;
@@ -18,7 +16,6 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
         mainCamera = FindObjectOfType<Camera>();
     }
 
@@ -28,8 +25,6 @@ public class PlayerController : MonoBehaviour
         float z = Input.GetAxis("Vertical");
 
         Vector3 move = new Vector3(x, 0, z) * speed * Time.deltaTime;
-        
-        //Vector3 move = (transform.right * x + transform.forward * z) * speed * Time.deltaTime;
 
         controller.Move(move);
 
@@ -41,15 +36,10 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 pointToLook = cameraRay.GetPoint(rayHitOnPlane);
 
-            Debug.DrawLine(cameraRay.origin, pointToLook, Color.green);
+            //Debug.DrawLine(cameraRay.origin, pointToLook, Color.green);
 
             transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
         }
 
-    }
-
-    private void FixedUpdate()
-    {
-        rb.velocity = moveVelocity;
     }
 }

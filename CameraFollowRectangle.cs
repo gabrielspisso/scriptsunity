@@ -6,14 +6,9 @@ public class CameraFollowRectangle : MonoBehaviour
 {
     [SerializeField]
     private Transform target;
-    [SerializeField]
-    public Vector3 offset;
-    [SerializeField]
-    private Vector3 mouseOffset;
-    [SerializeField]
-    [Range(0, 100)]
+    private  Vector3 offset;
+    [SerializeField, Range(0, 100)]
     public float widthPercent = 100f;
-    [SerializeField]
     [Range(0, 100)]
     public float heightPercent = 100f;
 
@@ -65,8 +60,6 @@ public class CameraFollowRectangle : MonoBehaviour
     {
         Vector2 mousePosition = GetInputValues();
         Vector3 mouseOffset = new Vector3(mousePosition.x, 0, mousePosition.y);
-
-        print(new Vector2(Input.mousePosition.x - Screen.width / 2, Input.mousePosition.y - Screen.height / 2));
         transform.position = target.position + offset + mouseOffset * 0.025f;
     }
 }
