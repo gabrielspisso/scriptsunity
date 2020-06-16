@@ -45,7 +45,7 @@ public class CameraFollowRectangle : MonoBehaviour
     {
         SizeRectangleArea();//Se pone aca para poder actualizar los valores si se cambian los limites en el editor
         float x = GetMouseX();
-        float y = GetMouseX();
+        float y = GetMouseY();
         return new Vector2(x, y);
     }
 
