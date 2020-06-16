@@ -3,28 +3,33 @@ using UnityEngine;
 
 public class CameraCollider : MonoBehaviour
 {
-    
-    private void OnTriggerEnter(Collider other)
+
+    public float smoothTime = 0.125F;
+    private Vector3 velocity = Vector3.zero;
+    private Vector3 targetPosition;
+
+    private void Awake()
     {
-        if(other.gameObject.tag == "Player") {
-            StartCoroutine("SmoothTransition", other.gameObject.transform.position);
-        }
+        targetPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
     }
 
-    private IEnumerator SmoothTransition(Vector3 position) {
-        var heading = position - transform.position;
-        var distance = heading.magnitude;
-        var direction = heading / distance;
-        Vector3 startingPos = transform.position;
-        Vector3 finalPos = position + direction;
-        float elapsedTime = 0;
-        float time = 0.5f;
+    private void LateUpdate()
+    {
+        SmoothFollow();
+    }
 
-        while (elapsedTime < time)
+    private void SmoothFollow()
+    {
+        Vector3 startingPos = transform.position;
+        Vector3 finalPos = targetPosition;
+        transform.position = Vector3.SmoothDamp(startingPos, finalPos, ref velocity, smoothTime);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
         {
-            transform.position = Vector3.Lerp(startingPos, finalPos, (elapsedTime / time));
-            elapsedTime += Time.deltaTime;
-            yield return null;
+            targetPosition = other.gameObject.transform.position;
         }
     }
 }

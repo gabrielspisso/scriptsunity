@@ -6,8 +6,6 @@ public class ColliderCameraFollow : MonoBehaviour
 {
     [SerializeField]
     private Transform target;
-
-    [SerializeField]
     private Vector3 offset;
     private void Start()
     {
